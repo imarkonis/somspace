@@ -1,7 +1,7 @@
 #' Transform a data table object in tidy format to a matrix object 
 #'
-#' @param data_som A list prepared by dt_to_som() function
-#' @param ... Arguments of som() function of kohonen package.
+#' @param data_som List returned by dt_to_som() 
+#' @param ... Arguments of som() of kohonen package
 #' 
 #' @details ToDo
 #' 

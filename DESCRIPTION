@@ -1,0 +1,21 @@
+Package: somspace
+Type: Package
+Title: Self-Organizing Maps in space
+Version: 0.0.1
+Authors@R: c(person("Yannis", "Markonis",
+                     role = c("aut", "cre"),
+                     email = "imarkonis@gmail.com"),
+              person("Filip", "Strnad", 
+                      role = "ctb"))
+Description: A spatial application framework of Self-Organizing Maps for classification of regions with similar characteristics.
+License: GPL-3
+Depends: R (>= 3.4.0), ggplot2, RNetCDF, reshape2, data.table, kohonen
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

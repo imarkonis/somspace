@@ -26,17 +26,12 @@
 #' 
 #' @export
 
-somspace <- function(data_som, ...){
-  data_som$som <- som(X = data_som$input_for_som, ...) 
-  som_results <- data.table(id = data_som$coords$id, 
-                            lat = data_som$coords$lat, 
-                            lon = data_som$coords$lon,
-                            node = data_som$som$unit.classif, 
-                            distance = data_som$som$distances)
-  som_results[, node_lat := median(lat), by = node]
-  som_results[, node_lon := median(lon), by = node]
-  som_results[, node_sd_lat := sd(lat), by = node]
-  som_results[, node_sd_lon := sd(lon), by = node]
-  som_results[, node_counts := .N, by = node]
-  return(list(summary = som_results, som = data_som$som))
+
+som_clusters <- function(som_data, nclusters, ...){
+  out <- data.table(som_data$summary)
+  for(i in 2:nclusters){
+    som_hc <- unname(cutree(hclust(dist(som_data$som$codes[[1]]), ...), i))
+    out[, paste0("clusters.", i) := som_hc[out$node]]
+  }
+  return(cl_rename(out))
 }

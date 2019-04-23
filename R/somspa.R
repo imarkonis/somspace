@@ -40,7 +40,11 @@ somspa.default <- function(x, ...){
   som_results[, node_sd_lat := sd(lat), by = node]
   som_results[, node_sd_lon := sd(lon), by = node]
   som_results[, node_counts := .N, by = node]
-  out <- list(summary = som_results, som = x$som)
+  out <- list(summary = som_results, 
+              som = x$som, 
+              input_dt = merge(som_results[, .(id, node)],
+                               x$input_dt, 
+                               by = 'id'))
   class(out) <- 'somsp'
   return(out)
 }

@@ -1,4 +1,4 @@
-#' Spatial SOM object class
+#' Spatial SOM class
 #' 
 #' @details ToDo
 #' 

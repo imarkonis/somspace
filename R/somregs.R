@@ -35,7 +35,7 @@ somregs <- function(x, nregions, ...){
   }
   out$regions <- reg_rename(temp)
   out$input_dt <- x$input_dt
-  class(out) <- "srgs"
+  class(out) <- "regs"
   return(out)
 }
 

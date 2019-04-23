@@ -9,10 +9,10 @@
 #' 
 #' @export
 
-srgs <- list()
-class(srgs) <- "srgs"
+regs <- list()
+class(regs) <- "regs"
 
-plot.srgs <- function(x, regions, nrow, ncol, ...){
+plot.regs <- function(x, regions, nrow, ncol, ...){
   colset_light_qual <- c("#8dd3c7",   "#fdb462", "#bebada", "#fb8072", 
                          "#80b1d3",  "#b3de69", "#ffed6f","#bc80bd",      
                          "#d9d9d9",  "#fccde5","#ccebc5", "#a1d6e2")
@@ -36,14 +36,14 @@ plot.srgs <- function(x, regions, nrow, ncol, ...){
   par(mfrow = c(1, 1))
 } 
 
-srgs.get_ts <- function(x, nregions){
+regs.get_ts <- function(x, nregions){
   ids <- data.table(id = x$regions[[1]], region = x$regions[[nregions + nregions]])
   out <- merge(x$input_dt, ids, by = "id")  
   out <- unique(out[, .(variable = mean(variable)), .(time, region)])
   return(out)
 }
 
-srgs.ts_plot <- function(x, nregions){
+regs.ts_plot <- function(x, nregions){
   ids <- data.table(id = x$regions[[1]], region = x$regions[[nregions + nregions]])
   to_plot <- merge(x$input_dt, ids, by = "id")  
   to_plot <- unique(to_plot[, .(variable = mean(variable)), .(time, region)])

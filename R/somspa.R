@@ -17,18 +17,18 @@
 #' }
 #' 
 #' @examples
-#' aa <- dt_to_som(my_tidy_dt)
-#' bb <- somspace(aa), relen = 1000, grid = somgrid(6, 6, "hexagonal"))
-#' bb$summary
-#' bb$som
+#' input_for_som <- sominp(my_dt)
+#' my_som <- somspa(aa), relen = 1000, grid = somgrid(6, 6, "hexagonal"))
+#' my_som$summary
+#' my_som$som
 #' 
 #' @seealso \code{\link{kohonen}} 
 #' 
 #' @export
 
-somsp <- function(x, ...) UseMethod("somsp") 
+somspa <- function(x, ...) UseMethod("somspa") 
 
-somsp.default <- function(x, ...){
+somspa.default <- function(x, ...){
   x$som <- som(X = x$input_for_som, ...) 
   som_results <- data.table(id = x$coords$id, 
                             lat = x$coords$lat, 
@@ -42,16 +42,7 @@ somsp.default <- function(x, ...){
   som_results[, node_counts := .N, by = node]
   out <- list(summary = som_results, som = x$som)
   class(out) <- 'somsp'
-  return()
+  return(out)
 }
 
-somsp.plot <- function(...){
-  colset_light_qual <- c("#8dd3c7",   "#fdb462", "#bebada", "#fb8072", 
-                         "#80b1d3",  "#b3de69", "#ffed6f","#bc80bd",      
-                         "#d9d9d9",  "#fccde5","#ccebc5", "#a1d6e2")
-  palette_light_qual <- colorRampPalette(colset_light_qual)
-  nnodes = max(som_data$summary$node)
-  my_col = palette_light_qual(nnodes)
-  plot(lat ~ lon, data = som_data$summary, pch = 15, col = my_col[node])
-  maps::map("world", add = TRUE)
-}
+

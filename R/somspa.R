@@ -26,9 +26,7 @@
 #' 
 #' @export
 
-somspa <- function(x, ...) UseMethod("somspa") 
-
-somspa.default <- function(x, ...){
+somspa <- function(x, ...){
   x$som <- som(X = x$input_for_som, ...) 
   som_results <- data.table(id = x$coords$id, 
                             lat = x$coords$lat, 

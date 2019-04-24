@@ -1,7 +1,7 @@
 Package: somspace
 Type: Package
 Title: Self-Organizing Maps in space
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: c(person("Yannis", "Markonis",
                      role = c("aut", "cre"),
                      email = "imarkonis@gmail.com"),

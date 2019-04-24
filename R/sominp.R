@@ -13,9 +13,7 @@
 #' 
 #' @export
 
-sominp <- function(x, ...) UseMethod("sominp") 
-
-sominp.default <- function(x, ...)
+sominp <- function(x, ...)
 {
   out <- list()
   names(x) <- c("time", "lat", "lon", "variable")
@@ -36,6 +34,6 @@ sominp.default <- function(x, ...)
   out$coords <- id_coords
   out$input_dt <- x
   out
-  class(out) <- 'sominp'
+  class(out) <- 'somin'
   return(out)
 }

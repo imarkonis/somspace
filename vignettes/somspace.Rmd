@@ -103,4 +103,3 @@ Finally, a specific classification of certain number of regions can be analysed 
 ```{r}
 cnet(my_regions, 12, 0.3)
 ```
-

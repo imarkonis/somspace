@@ -6,6 +6,7 @@ S3method(plot,ts.regs)
 S3method(plot_ts,regs)
 S3method(plot_ts,somsp)
 S3method(summary,somsp)
+
 export(cnet)
 export(cor_mat)
 export(cor_regs)
@@ -16,3 +17,8 @@ export(sominp)
 export(somregs)
 export(somsp)
 export(somspa)
+
+importFrom("grDevices", "colorRampPalette")
+importFrom("graphics", "par", "plot", "points", "segments", "text")
+importFrom("stats", "complete.cases", "cor", "cutree", "dist",
+             "hclust", "median", "reshape", "sd", "time")

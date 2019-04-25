@@ -7,8 +7,7 @@ Authors@R: c(person("Yannis", "Markonis",
                      email = "imarkonis@gmail.com"),
               person("Filip", "Strnad", 
                       role = "ctb"))
-Description: Spatial application of Self-Organizing Maps for 
-classification of regions with similar characteristics.
+Description: Spatial application of Self-Organizing Maps for classification of regions with similar characteristics.
 License: GPL-3
 Depends: R (>= 3.4.0), ggplot2, reshape2, data.table, kohonen
 Encoding: UTF-8
@@ -17,5 +16,6 @@ RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr

@@ -18,6 +18,7 @@ sominp(x, ...)
 and contain four columns: time, latitude, longitude and variable.
 }
 \examples{
+\dontrun{}
 som_input(my_tidy_dt)
 
 }

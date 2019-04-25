@@ -1,0 +1,8 @@
+bibentry(bibtype = "Article",           
+         title = "Representation of European hydroclimatic patterns with Self-Organizing Maps",          
+         author = c(person("Yannis", "Markonis"),                     
+                    person("Strnad", "Filip")),          
+         year = 2019,  
+         journal = 'Stochastic Environmental Research and Risk Assessment',
+         DOI = "DOI goes here")
+

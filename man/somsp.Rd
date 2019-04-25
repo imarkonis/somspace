@@ -29,6 +29,7 @@ location and a node number to the classification group of SOM.}
 They can be plotted by \code{plot} and \code{plot_ts} functions or summarized by \code{summary}.
 }
 \examples{
+\dontrun{}
 my_som <- somspa(som_inp)
 my_som$summary
 my_som$som

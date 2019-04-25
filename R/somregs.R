@@ -31,6 +31,7 @@
 #' @seealso \code{\link{somspa}} 
 #' 
 #' @examples
+#' \dontrun{}
 #' my_som <- somspa(inp_som)
 #' my_regions <- somregs(my_som) 
 #' plot(my_regions, nregions = c(2, 5, 9, 13), nrow = 2, ncol = 2) #nrow, ncol corresponds to the number of 

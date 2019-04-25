@@ -20,6 +20,7 @@
 #' \item{a `data.table` with the original dataset.}
 #' 
 #' @examples
+#' \dontrun{}
 #' som_input(my_tidy_dt)
 #' 
 #' @export

@@ -26,8 +26,9 @@
 #' @seealso \code{\link{sominp}} 
 #' 
 #' @examples
+#' \dontrun{}
 #' inp_som <- sominp(my_dt)
-#' my_som <- somspa(inp_som, relen = 1000, grid = somgrid(6, 6, "hexagonal"))
+#' my_som <- somspa(inp_som, rlen = 1000, grid = somgrid(6, 6, "hexagonal"))
 #' my_som$summary
 #' my_som$som
 #' 

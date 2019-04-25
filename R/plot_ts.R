@@ -8,6 +8,7 @@
 #' @details In case of `regs`, all the regions are ploted. 
 #' 
 #' @examples
+#' \dontrun{}
 #' my_som <- somspa(aa), relen = 1000, grid = somgrid(6, 6, "hexagonal"))
 #' plot_ts(my_som, 5)
 #' plot_ts(my_som, c(1, 5, 18, 21))

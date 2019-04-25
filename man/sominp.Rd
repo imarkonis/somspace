@@ -4,10 +4,23 @@
 \alias{sominp}
 \title{Create sominp object}
 \usage{
-sominp(x, ...)
+sominp(x)
 }
 \arguments{
 \item{x}{The \code{data.table} object which will be tranformed to \code{somsp} object.}
+}
+\value{
+A \code{sominp} object. It contains:
+
+\itemize{
+
+\item{a \code{matrix} that can be used as input for the \code{som} function of
+the \code{kohonen package}.}
+
+\item{a \code{data.table} with the with spatial point coordinates and a corresponding id.}
+
+\item{a \code{data.table} with the original dataset.}
+}
 }
 \description{
 \code{sominp} transforms the data set from \code{data.table} to

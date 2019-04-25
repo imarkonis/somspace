@@ -18,6 +18,7 @@
 #' \item{a `data.table` with the with spatial point coordinates and a corresponding id.}
 #' 
 #' \item{a `data.table` with the original dataset.}
+#' }
 #' 
 #' @examples
 #' \dontrun{}
@@ -25,7 +26,7 @@
 #' 
 #' @export
 
-sominp <- function(x, ...)
+sominp <- function(x)
 {
   out <- list()
   names(x) <- c("time", "lat", "lon", "variable")

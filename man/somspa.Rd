@@ -2,40 +2,51 @@
 % Please edit documentation in R/somspa.R
 \name{somspa}
 \alias{somspa}
-\title{Transform a data table object in tidy format to a matrix object}
+\title{Spatial SOM}
 \usage{
 somspa(x, ...)
 }
 \arguments{
-\item{x}{A somsp object}
+\item{x}{A \code{sominp} object.}
 
-\item{...}{Arguments of som() of kohonen package}
+\item{...}{Other arguments passed to methods from \code{kohonen::som} function which is used to create the SOM.}
 }
 \value{
-A list of a data table and a som object
+A \code{somsp} object, which contains:
 
 \itemize{
 
-\item{summary}{coordinates of each SOM node, the distances of objects
+\item{A summary \code{data.table} with the coordinates of each SOM node, the distances of objects
 to their corresponding winning unit, the number of points of each node, as well as the median
-latitude and longitude of each node coordinates, as well as their standard deviation}
+latitude and longitude of each node coordinates and their standard deviation.}
 
-\item{som}{Self-Organizing Map (see \code{\link{som}})}
+\item{A Self-Organizing Map object (see also \code{\link{kohonen}}).}
+
+\item{The \code{sominp} object used as input for the SOM, with an id number coressponding to
+location and a node number to the classification group of SOM.}
 }
 }
 \description{
-Transform a data table object in tidy format to a matrix object
+\code{somspa} creates a Self-Organizing Map from spatial data.
 }
 \details{
-ToDo
+\code{x} should be created by \code{sominp}.
+The output \code{somsp} objects can be plotted by \code{plot} and \code{plot_ts} functions or summarized by \code{summary}
 }
 \examples{
-input_for_som <- sominp(my_dt)
-my_som <- somspa(aa), relen = 1000, grid = somgrid(6, 6, "hexagonal"))
+inp_som <- sominp(my_dt)
+my_som <- somspa(inp_som, relen = 1000, grid = somgrid(6, 6, "hexagonal"))
 my_som$summary
 my_som$som
 
+plot(som)
+plot_ts(my_som, n = 12)
+plot_ts(my_som, n = c(1, 12, 21, 39)) 
+plot_ts(my_som, n = 1:max(my_som$summary$node)) #plots all soms
+
 }
 \seealso{
-\code{\link{kohonen}}
+\code{\link{som}}
+
+\code{\link{sominp}}
 }

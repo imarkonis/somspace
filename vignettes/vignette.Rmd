@@ -21,19 +21,20 @@ This is is an introductory presentation of the `somspace` package, as implemente
 
 ## Data import 
 
-The Old World Drought Atlas [[Cook et al., 2016](link)] was used, as pre-processed by [Markonis et al. [2018]](link). The file can be downloaded [here](link).
+The Old World Drought Atlas [[Cook et al., 2016](link)] was used, as pre-processed by [Markonis et al. [2018]](link). The file can be downloaded [here](https://shiny.fzp.czu.cz/KVHEM/OWDA/app9b73ae0021d7e57ccae64a7573589ebc/session/a9c548ee2da4242d12da94cd1df223a2/download/downloadData?w=), and is a `data.table` object saved as an `rds` file.
 
 ```{r}
 library(somspace)
-load('../../owda_som/data/owda_for_som.rdata')
+owda <- readRDS('../../owda_1000.rds')
+str(owda)
 ```
 
 ## Data preparation
 
-First of all, we have to transform the raw data from `data.table` to `somin` class. 
+First of all, we have to transform the raw data from `data.table` to `somin` class. If the original data have different structure/type them it is important to transform them to a 4-column `data.table`, containing time, lat, lon and the variable.
 
 ```{r}
-inp <- sominp(owda_raw[, 1:4])
+inp <- sominp(owda) #depending on data set size may take some time
 ```
 
 The `somin` class is a list with three elements. The first one, `input_for_som`, is a `matrix` that will be used by `kohonen::som` function to generate the SOM. The second one, `coords`, is a `data table` with the point ids and their coordinates. The last one, `input_dt` is also a `data table` with the raw data that were used to generate `input_for_som`.
@@ -95,7 +96,7 @@ plot(my_regions, c(2, 5, 9, 13), 2, 2)
 plot_ts(my_regions, 2)
 ```
 
-## Canonical network analysis
+## Complex network analysis
 
 Finally, a specific classification of certain number of regions can be analysed through canonical networks and ploted as map with `cnet()`. The threshold, `thres`, refers to the cross-correlation coefficient between the averaged time series of each region; only values above `thres` are considered to be network connections.
 

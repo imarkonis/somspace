@@ -2,23 +2,20 @@
 % Please edit documentation in R/sominp.R
 \name{sominp}
 \alias{sominp}
-\title{Transform a data table object in tidy format to a somsp object}
+\title{Create sominp object}
 \usage{
 sominp(x, ...)
 }
 \arguments{
-\item{x}{The data table object that will be tranformed}
-}
-\value{
-A sominp object. It contains a matrix that can be used as input for the som() function of
-the kohonen package (input_for_som), a data table linking ids with latitude and
-longitude (coords) and the original dataset (input_dt)
+\item{x}{The \code{data.table} object which will be tranformed to \code{somsp} object.}
 }
 \description{
-Transform a data table object in tidy format to a somsp object
+\code{sominp} transforms the data set from \code{data.table} to
+\code{somsp} format, which can be used as argument in the \code{somspa} function.
 }
 \details{
-x should contain four columns: time, latitude, longitude and variable
+\code{x} should be in \href{https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html}{tidy format}
+and contain four columns: time, latitude, longitude and variable.
 }
 \examples{
 som_input(my_tidy_dt)

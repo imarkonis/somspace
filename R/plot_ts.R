@@ -1,4 +1,6 @@
-#' Plots the time series of SOM nodes or regions mean 
+#' Plot time series
+#' 
+#' @description Plots the time series of SOM nodes or regions mean 
 #' 
 #' @param x is either a `somsp` or a `regs` object  
 #' @param n is either the set of nodes for `somsp` or the number of regions for `regs`

@@ -1,28 +1,40 @@
-#' Transform a data table object in tidy format to a matrix object 
+#' Classify SOM into regions
+#' 
+#' @description `somregs` applies hierarchical cluster analysis to the Self-Organizing Map 
+#' to form regions with homogeneous characteristics (classification scheme).
 #'
-#' @param x List returned by dt_to_som() 
-#' @param ... Arguments of som() of kohonen package
+#' @param x A `somsp` object.
+#' @param nregions The maximum number of classifications schemes to be determined starting from 2. 
+#' @param ... Other arguments passed to methods from `hclust` function which is used to determine the regions.
 #' 
-#' @details ToDo
+#' @details `nregions` must be at least two, i.e., a classification scheme with two regions, and smaller than
+#' the number of SOM nodes. In the latter case, each SOM node corresponds to a region. 
+#' The resulting `regs` object can be plotted by `plot` and `plot_ts`. 
+#' If `plot` is used, three additional arguments are needed; a set with the classification schemes 
+#' that will be ploted, number of rows and number of columns of the plotted panels.
+#' `plot_ts` plots all the time series of a given classification scheme.
 #' 
-#' @return A list of a data table and a som object
+#' @return A `regs` object, which contains: 
 #' 
 #' \itemize{
 #' 
-#' \item{summary}{coordinates of each SOM node, the distances of objects 
+#' \item{A summary `data.table` which updates the `somsp` object with the region ids of all classification schemes
+#' up to `nregions`. Each different classification scheme is stored as an individual region, e.g., `regions.2`, 
+#' `regions.3`, etc.
 #' to their corresponding winning unit, the number of points of each node, as well as the median 
-#' latitude and longitude of each node coordinates, as well as their standard deviation}
+#' latitude and longitude of each node coordinates and their standard deviation.}
 #' 
-#' \item{som}{Self-Organizing Map (see \code{\link{som}})}
+#' \item{The original time series which created the SOM as a `data.table`, as in `somsp`.}
 #' }
 #' 
-#' @examples
-#' aa <- dt_to_som(my_tidy_dt)
-#' bb <- somspace(aa), relen = 1000, grid = somgrid(6, 6, "hexagonal"))
-#' bb$summary
-#' bb$som
+#' @seealso \code{\link{somsp}} 
+#' @seealso \code{\link{somspa}} 
 #' 
-#' @seealso \code{\link{kohonen}} 
+#' @examples
+#' my_som <- somspa(inp_som)
+#' my_regions <- somregs(my_som) 
+#' plot(my_regions, nregions = c(2, 5, 9, 13), nrow = 2, ncol = 2) #nrow, ncol corresponds to the number of 
+#' plot_ts(my_regions, n = 2)
 #' 
 #' @export
 

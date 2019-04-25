@@ -2,40 +2,52 @@
 % Please edit documentation in R/somregs.R
 \name{somregs}
 \alias{somregs}
-\title{Transform a data table object in tidy format to a matrix object}
+\title{Classify SOM into regions}
 \usage{
 somregs(x, nregions, ...)
 }
 \arguments{
-\item{x}{List returned by dt_to_som()}
+\item{x}{A \code{somsp} object.}
 
-\item{...}{Arguments of som() of kohonen package}
+\item{nregions}{The maximum number of classifications schemes to be determined starting from 2.}
+
+\item{...}{Other arguments passed to methods from \code{hclust} function which is used to determine the regions.}
 }
 \value{
-A list of a data table and a som object
+A \code{regs} object, which contains:
 
 \itemize{
 
-\item{summary}{coordinates of each SOM node, the distances of objects
+\item{A summary \code{data.table} which updates the \code{somsp} object with the region ids of all classification schemes
+up to \code{nregions}. Each different classification scheme is stored as an individual region, e.g., \code{regions.2},
+\code{regions.3}, etc.
 to their corresponding winning unit, the number of points of each node, as well as the median
-latitude and longitude of each node coordinates, as well as their standard deviation}
+latitude and longitude of each node coordinates and their standard deviation.}
 
-\item{som}{Self-Organizing Map (see \code{\link{som}})}
+\item{The original time series which created the SOM as a \code{data.table}, as in \code{somsp}.}
 }
 }
 \description{
-Transform a data table object in tidy format to a matrix object
+\code{somregs} applies hierarchical cluster analysis to the Self-Organizing Map
+to form regions with homogeneous characteristics (classification scheme).
 }
 \details{
-ToDo
+\code{nregions} must be at least two, i.e., a classification scheme with two regions, and smaller than
+the number of SOM nodes. In the latter case, each SOM node corresponds to a region.
+The resulting \code{regs} object can be plotted by \code{plot} and \code{plot_ts}.
+If \code{plot} is used, three additional arguments are needed; a set with the classification schemes
+that will be ploted, number of rows and number of columns of the plotted panels.
+\code{plot_ts} plots all the time series of a given classification scheme.
 }
 \examples{
-aa <- dt_to_som(my_tidy_dt)
-bb <- somspace(aa), relen = 1000, grid = somgrid(6, 6, "hexagonal"))
-bb$summary
-bb$som
+my_som <- somspa(inp_som)
+my_regions <- somregs(my_som) 
+plot(my_regions, nregions = c(2, 5, 9, 13), nrow = 2, ncol = 2) #nrow, ncol corresponds to the number of 
+plot_ts(my_regions, n = 2)
 
 }
 \seealso{
-\code{\link{kohonen}}
+\code{\link{somsp}}
+
+\code{\link{somspa}}
 }

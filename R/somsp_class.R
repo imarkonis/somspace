@@ -1,11 +1,33 @@
 #' Spatial SOM class
 #' 
-#' @details ToDo
+#' @details The `somsp` objects are created by `somspa` function and contain: 
+#' 
+#' \itemize{
+#' 
+#' \item{A summary `data.table` with the coordinates of each SOM node, the distances of objects 
+#' to their corresponding winning unit, the number of points of each node, as well as the median 
+#' latitude and longitude of each node coordinates and their standard deviation.}
+#' 
+#' \item{A Self-Organizing Map object (see also \code{\link{kohonen}}).}
+#' 
+#' \item{The `sominp` object used as input for the SOM, with an id number coressponding to 
+#' location and a node number to the classification group of SOM.}
+#' }
+#' 
+#' They can be plotted by `plot` and `plot_ts` functions or summarized by `summary`.
+#' 
+#' @seealso \code{\link{somspa}}
+#' @seealso \code{\link{plot_ts}}
 #' 
 #' @examples
-#' my_som <- somspa(aa), relen = 1000, grid = somgrid(6, 6, "hexagonal"))
-#' summary(my_som)
-#' plot(my_som)
+#' my_som <- somspa(som_inp)
+#' my_som$summary
+#' my_som$som
+#' 
+#' plot(som)
+#' plot_ts(my_som, n = 12)
+#' plot_ts(my_som, n = c(1, 12, 21, 39)) 
+#' plot_ts(my_som, n = 1:max(my_som$summary$node)) #plots all soms
 #' 
 #' @export
 

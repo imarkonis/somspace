@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_ts.R
 \name{plot_ts}
 \alias{plot_ts}
-\title{Plots the time series of SOM nodes or regions mean}
+\title{Plot time series}
 \usage{
 plot_ts(x, n)
 }

@@ -1,12 +1,23 @@
-#' Transform a data table object in tidy format to a somsp object
+#' Create sominp object
+#' 
+#' @description `sominp` transforms the data set from `data.table` to 
+#' `somsp` format, which can be used as argument in the `somspa` function.
 #'
-#' @param x The data table object that will be tranformed 
+#' @param x The `data.table` object which will be tranformed to `somsp` object.
 #' 
-#' @details x should contain four columns: time, latitude, longitude and variable
+#' @details `x` should be in [tidy format](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html) 
+#' and contain four columns: time, latitude, longitude and variable.
 #' 
-#' @return A sominp object. It contains a matrix that can be used as input for the som() function of 
-#' the kohonen package (input_for_som), a data table linking ids with latitude and 
-#' longitude (coords) and the original dataset (input_dt)
+#' @return A `sominp` object. It contains: 
+#' 
+#' \itemize{
+#' 
+#' \item{a `matrix` that can be used as input for the `som` function of 
+#' the `kohonen package`.}
+#' 
+#' \item{a `data.table` with the with spatial point coordinates and a corresponding id.}
+#' 
+#' \item{a `data.table` with the original dataset.}
 #' 
 #' @examples
 #' som_input(my_tidy_dt)

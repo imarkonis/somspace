@@ -1,16 +1,22 @@
-#' Plots the canonical netowrk map of classified regions
+#' Complex network analysis
+#' 
+#' @description `cnet` plots the canonical network map of a single classification scheme. 
 #'
-#' @param x regs object 
-#' @param n number of regions
-#' @param thres the cross-corelation threshold of the network
+#' @param x regs object. 
+#' @param n number of regions.
+#' @param thres the cross-correlation threshold of the network.
 #' 
-#' @details ToDo
+#' @details The `cnet` function estimates the cross-correlation matrix of the average time series of 
+#' each region and plots a map linking the regions with cross-correlations above the selected threshold.
 #' 
-#' @return A map with the canonical network
+#' @examples
+#' my_som <- somspa(inp_som)
+#' my_regions <- somregs(my_som) 
+#' cnet(my_regions, n = 12, thres = 0.3)
 #' 
 #' @export
 
-cnet <- function(x, n, thres, ...){
+cnet <- function(x, n, thres){
   aa_cor <- melt(cor_regs(x, n))
   aa_cor <- data.table(aa_cor[aa_cor$value != 1,])
   aa_cor_thres <- aa_cor[value > thres]

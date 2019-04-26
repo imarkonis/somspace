@@ -20,7 +20,6 @@
 #' @seealso \code{\link{plot_ts}}
 #' 
 #' @examples
-#' \dontrun{}
 #' my_som <- somspa(som_inp)
 #' my_som$summary
 #' my_som$som

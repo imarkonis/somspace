@@ -21,9 +21,9 @@
 #' }
 #' 
 #' @examples
-#' \dontrun{}
 #' som_input(my_tidy_dt)
 #' 
+#' @importFrom stats complete.cases cor cutree dist hclust median reshape sd time
 #' @export
 
 sominp <- function(x)

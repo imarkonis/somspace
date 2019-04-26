@@ -10,11 +10,11 @@
 #' each region and plots a map linking the regions with cross-correlations above the selected threshold.
 #' 
 #' @examples
-#' \dontrun{}
 #' my_som <- somspa(inp_som)
 #' my_regions <- somregs(my_som) 
 #' cnet(my_regions, n = 12, thres = 0.3)
-#' 
+#' @import maps
+#' @importFrom graphics par plot points segments text
 #' @export
 
 cnet <- function(x, n, thres){

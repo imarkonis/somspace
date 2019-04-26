@@ -37,7 +37,7 @@ First of all, we have to transform the raw data from `data.table` to `somin` cla
 inp <- sominp(owda) #depending on data set size may take some time
 ```
 
-The `somin` class is a list with three elements. The first one, `input_for_som`, is a `matrix` that will be used by `kohonen::som` function to generate the SOM. The second one, `coords`, is a `data table` with the point ids and their coordinates. The last one, `input_dt` is also a `data table` with the raw data that were used to generate `input_for_som`.
+The `somin` class is a list with three elements. The first one, `input_for_som`, is a `matrix` that will be used by `kohonen::som` function to generate the SOM. The second one, `coords`, is a `data.table` with the point ids and their coordinates. The last one, `input_dt` is also a `data.table` with the raw data that were used to generate `input_for_som`.
 
 ```{r}
 str(inp)

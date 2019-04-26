@@ -34,7 +34,6 @@ location and a node number to the classification group of SOM.}
 The output \code{somsp} objects can be plotted by \code{plot} and \code{plot_ts} functions or summarized by \code{summary}
 }
 \examples{
-\dontrun{}
 inp_som <- sominp(my_dt)
 my_som <- somspa(inp_som, rlen = 1000, grid = somgrid(6, 6, "hexagonal"))
 my_som$summary

@@ -26,7 +26,6 @@
 #' @seealso \code{\link{sominp}} 
 #' 
 #' @examples
-#' \dontrun{}
 #' inp_som <- sominp(my_dt)
 #' my_som <- somspa(inp_som, rlen = 1000, grid = somgrid(6, 6, "hexagonal"))
 #' my_som$summary
@@ -37,6 +36,7 @@
 #' plot_ts(my_som, n = c(1, 12, 21, 39)) 
 #' plot_ts(my_som, n = 1:max(my_som$summary$node)) #plots all soms
 #' 
+#' @importFrom kohonen som
 #' @export
 
 somspa <- function(x, ...){

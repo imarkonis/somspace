@@ -1,3 +1,4 @@
+#' @importFrom grDevices colorRampPalette
 #' @export
  
 plot.somsp <- function(x, ...){

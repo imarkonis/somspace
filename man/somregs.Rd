@@ -40,10 +40,9 @@ that will be ploted, number of rows and number of columns of the plotted panels.
 \code{plot_ts} plots all the time series of a given classification scheme.
 }
 \examples{
-\dontrun{}
 my_som <- somspa(inp_som)
 my_regions <- somregs(my_som) 
-plot(my_regions, nregions = c(2, 5, 9, 13), nrow = 2, ncol = 2) #nrow, ncol corresponds to the number of 
+plot(my_regions, nregions = c(2, 5, 9, 13), nrow = 2, ncol = 2) 
 plot_ts(my_regions, n = 2)
 
 }

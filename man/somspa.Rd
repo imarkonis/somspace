@@ -33,18 +33,6 @@ location and a node number to the classification group of SOM.}
 \code{x} should be created by \code{sominp}.
 The output \code{somsp} objects can be plotted by \code{plot} and \code{plot_ts} functions or summarized by \code{summary}
 }
-\examples{
-inp_som <- sominp(my_dt)
-my_som <- somspa(inp_som, rlen = 1000, grid = somgrid(6, 6, "hexagonal"))
-my_som$summary
-my_som$som
-
-plot(som)
-plot_ts(my_som, n = 12)
-plot_ts(my_som, n = c(1, 12, 21, 39)) 
-plot_ts(my_som, n = 1:max(my_som$summary$node)) #plots all soms
-
-}
 \seealso{
 \code{\link{som}}
 

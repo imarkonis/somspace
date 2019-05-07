@@ -1,5 +1,5 @@
 ---
-title: "somspace - Spatial classification with Self-Organizing Maps"
+title: "somspace: Spatial classification with Self-Organizing Maps"
 author: "Yannis Markonis"
 date: "`r Sys.Date()`"
 output: 
@@ -21,11 +21,10 @@ This is is an introductory presentation of the `somspace` package, as implemente
 
 ## Data import 
 
-The Old World Drought Atlas [[Cook et al., 2016](link)] was used, as pre-processed by [Markonis et al. [2018]](link). The file can be downloaded [here](https://shiny.fzp.czu.cz/KVHEM/OWDA/app9b73ae0021d7e57ccae64a7573589ebc/session/a9c548ee2da4242d12da94cd1df223a2/download/downloadData?w=), and is a `data.table` object saved as an `rds` file.
+In this study the Old World Drought Atlas [[Cook et al., 2016](link)] was used, as pre-processed by [Markonis et al. [2018]](link). The file can be downloaded [here](https://www.fzp.czu.cz/en/r-9409-science-research/r-9674-leading-research-groups/r-9669-hydrological-and-climate-variability/r-9713-team-news/webapp-for-hydroclimate-reconstruction.html), and is a `data.table` object saved as an `.rds` file. Alternatively, the `owda` data object that is included in the package can be used, which covers only period 1500-2012.
 
 ```{r}
 library(somspace)
-owda <- readRDS('../../owda_1000.rds')
 str(owda)
 ```
 

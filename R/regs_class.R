@@ -19,13 +19,6 @@
 #' @seealso \code{\link{somsp}} 
 #' @seealso \code{\link{somregs}} 
 #' 
-#' @examples
-#' 
-#' my_som <- somspa(inp_som)
-#' my_regions <- somregs(my_som) 
-#' plot(my_regions, c(2, 5, 9, 13), nrow = 2, ncol = 2) #nrow, ncol corresponds to the number of 
-#' plot_ts(my_regions, 2)
-#' 
 #' @export
 
 regs <- list()

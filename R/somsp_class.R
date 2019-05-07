@@ -19,16 +19,6 @@
 #' @seealso \code{\link{somspa}}
 #' @seealso \code{\link{plot_ts}}
 #' 
-#' @examples
-#' my_som <- somspa(som_inp)
-#' my_som$summary
-#' my_som$som
-#' 
-#' plot(som)
-#' plot_ts(my_som, n = 12)
-#' plot_ts(my_som, n = c(1, 12, 21, 39)) 
-#' plot_ts(my_som, n = 1:max(my_som$summary$node)) #plots all soms
-#' 
 #' @export
 
 somsp <- list()

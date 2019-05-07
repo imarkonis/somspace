@@ -27,10 +27,18 @@ the \code{kohonen package}.}
 \code{somsp} format, which can be used as argument in the \code{somspa} function.
 }
 \details{
-\code{x} should be in \href{https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html}{tidy format}
-and contain four columns: time, latitude, longitude and variable.
+\code{x} should be in tidy format
+with four columns: time, latitude, longitude and variable.
 }
 \examples{
-som_input(my_tidy_dt)
 
+dummy <- owda[Time <= 1510] #toy example
+inp_som <- sominp(dummy)
+
+\donttest{
+inp_som <- sominp(owda)}
+
+}
+\seealso{
+\code{\link{somspa}}
 }

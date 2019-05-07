@@ -10,9 +10,16 @@
 #' each region and plots a map linking the regions with cross-correlations above the selected threshold.
 #' 
 #' @examples
-#' my_som <- somspa(inp_som)
-#' my_regions <- somregs(my_som) 
-#' cnet(my_regions, n = 12, thres = 0.3)
+#' dummy <- owda[Time <= 1600] #toy example
+#' inp_som <- sominp(dummy)
+#' my_som <- somspa(inp_som, rlen = 100, grid = somgrid(3, 3, "hexagonal"))
+#' my_regions <- somregs(my_som, nregions = 6) 
+#' cnet(my_regions, n = 5, thres = 0.2)
+#' \donttest{
+#' inp_som <- sominp(owda)
+#' my_som <- somspa(inp_som, rlen = 1000, grid = somgrid(6, 6, "hexagonal"))
+#' my_regions <- somregs(my_som, nregions = 15) 
+#' cnet(my_regions, n = 12, thres = 0.3)}
 #' @import maps
 #' @importFrom graphics par plot points segments text
 #' @export
@@ -36,3 +43,5 @@ cnet <- function(x, n, thres){
   points(aa_coords$lon, aa_coords$lat, cex = 3, pch = 16)
   text(aa_coords$lon, aa_coords$lat, labels = aa_coords$region, cex = 0.7, col = "grey90")
 }
+
+globalVariables("value")

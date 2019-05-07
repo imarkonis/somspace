@@ -17,14 +17,6 @@ Plots the time series of SOM nodes or regions mean
 \details{
 In case of \code{regs}, all the regions are ploted.
 }
-\examples{
-my_som <- somspa(aa, rlen = 1000, grid = somgrid(6, 6, "hexagonal"))
-plot_ts(my_som, 5)
-plot_ts(my_som, c(1, 5, 18, 21))
-plot_ts(my_som, 1:max(my_som$summary$node))
-
-my_regions <- somregs(my_som, 10)
-plot_ts(my_regions, 2)
-plot_ts(my_regions, 10)
-
+\seealso{
+\code{\link{somspa}}
 }

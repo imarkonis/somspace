@@ -40,10 +40,18 @@ that will be ploted, number of rows and number of columns of the plotted panels.
 \code{plot_ts} plots all the time series of a given classification scheme.
 }
 \examples{
+dummy <- owda[Time <= 1600] #toy example
+inp_som <- sominp(dummy)
+my_som <- somspa(inp_som, rlen = 100, grid = somgrid(4, 4, "hexagonal"))
+my_regions <- somregs(my_som, nregions = 9) 
+plot(my_regions, regions = c(2, 4, 6, 8), nrow = 2, ncol = 2) 
+plot_ts(my_regions, n = 4)
+\donttest{
+inp_som <- sominp(owda)
 my_som <- somspa(inp_som)
-my_regions <- somregs(my_som) 
-plot(my_regions, nregions = c(2, 5, 9, 13), nrow = 2, ncol = 2) 
-plot_ts(my_regions, n = 2)
+my_regions <- somregs(my_som, nregions = 15) 
+plot(my_regions, regions = c(2, 5, 9, 13), nrow = 2, ncol = 2) 
+plot_ts(my_regions, n = 9)}
 
 }
 \seealso{

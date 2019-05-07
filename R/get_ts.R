@@ -1,4 +1,4 @@
-globalVariables(".")
+globalVariables(c(".", "region"))
 
 get_ts <- function(x, nregions){
   ids <- data.table(id = x$regions[[1]], region = x$regions[[9 + nregions]])
@@ -8,7 +8,7 @@ get_ts <- function(x, nregions){
 }
 
 cor_mat <- function(x) {
-  mat <- acast(x, time~region, value.var = "variable")
+  mat <- as.matrix(dcast(x, time~region, value.var = "variable")[, -1])
   out <- cor(mat)
   return(out)
 }

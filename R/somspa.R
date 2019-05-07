@@ -26,15 +26,28 @@
 #' @seealso \code{\link{sominp}} 
 #' 
 #' @examples
-#' inp_som <- sominp(my_dt)
+#' dummy <- owda[Time <= 1600] #toy example
+#' inp_som <- sominp(dummy)
+#' 
+#' my_som <- somspa(inp_som, rlen = 100, grid = somgrid(3, 3, "hexagonal"))
+#' my_som$summary
+#' my_som$som
+#' 
+#' plot(my_som)
+#' plot_ts(my_som, n = 3)
+#' plot_ts(my_som, n = c(1, 2, 4, 9)) 
+#' plot_ts(my_som, n = 1:max(my_som$summary$node)) #plots all soms}
+#' 
+#' \donttest{
+#' inp_som <- sominp(owda)
 #' my_som <- somspa(inp_som, rlen = 1000, grid = somgrid(6, 6, "hexagonal"))
 #' my_som$summary
 #' my_som$som
 #' 
-#' plot(som)
+#' plot(my_som)
 #' plot_ts(my_som, n = 12)
-#' plot_ts(my_som, n = c(1, 12, 21, 39)) 
-#' plot_ts(my_som, n = 1:max(my_som$summary$node)) #plots all soms
+#' plot_ts(my_som, n = c(1, 12, 21, 33)) 
+#' plot_ts(my_som, n = 1:max(my_som$summary$node)) #plots all soms}
 #' 
 #' @importFrom kohonen som
 #' @export
@@ -60,4 +73,5 @@ somspa <- function(x, ...){
   return(out)
 }
 
+globalVariables(c("node", "node_lat", "node_lon", "node_sd_lat", "node_sd_lon", "node_counts"))
 

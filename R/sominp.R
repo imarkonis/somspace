@@ -5,8 +5,8 @@
 #'
 #' @param x The `data.table` object which will be tranformed to `somsp` object.
 #' 
-#' @details `x` should be in [tidy format](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html) 
-#' and contain four columns: time, latitude, longitude and variable.
+#' @details `x` should be in tidy format
+#' with four columns: time, latitude, longitude and variable.
 #' 
 #' @return A `sominp` object. It contains: 
 #' 
@@ -20,8 +20,15 @@
 #' \item{a `data.table` with the original dataset.}
 #' }
 #' 
+#' @seealso \code{\link{somspa}} 
+#' 
 #' @examples
-#' som_input(my_tidy_dt)
+#' 
+#' dummy <- owda[Time <= 1510] #toy example
+#' inp_som <- sominp(dummy)
+#' 
+#' \donttest{
+#' inp_som <- sominp(owda)}
 #' 
 #' @importFrom stats complete.cases cor cutree dist hclust median reshape sd time
 #' @export
@@ -33,14 +40,14 @@ sominp <- function(x)
   x[, id := .GRP, by = list(lat, lon)]
   setkey(x, id, time)
 
-  input_for_som <- x[, .(id, time, variable)]
+  input_for_som <- x[, list(id, time, variable)]
   input_for_som <- as.matrix(reshape(input_for_som, 
                                      ids = "id", 
                                      timevar = "time", 
                                      direction = "wide"))
   
   input_for_som <- input_for_som[complete.cases(input_for_som), ] 
-  id_coords <- unique(x[id %in% input_for_som[, 1], .(id, lat, lon)])
+  id_coords <- unique(x[id %in% input_for_som[, 1], list(id, lat, lon)])
   input_for_som <- input_for_som[, -1] 
 
   out$input_for_som <- input_for_som
@@ -50,3 +57,6 @@ sominp <- function(x)
   class(out) <- 'somin'
   return(out)
 }
+
+globalVariables(c("time", "lat", "lon", "variable", "id"))
+

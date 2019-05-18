@@ -17,9 +17,9 @@ plot_ts <- function(x, n) UseMethod("plot_ts")
 #' @export 
 
 plot_ts.somsp <- function(x, n){
-  to_plot <- x$input_dt[, .(node, time, variable)]
-  to_plot <- unique(to_plot[, .(variable = mean(variable)), .(time, node)])
-  ggplot(to_plot[node %in% n], aes(x = time, y = variable)) +
+  to_plot <- x$input_dt[, .(node, time, values)]
+  to_plot <- unique(to_plot[, .(values = mean(values)), .(time, node)])
+  ggplot(to_plot[node %in% n], aes(x = time, y = values)) +
     geom_line(alpha = 0.3) +
     geom_smooth(method = 'loess', span = 0.1, col =  "black", fill = 'dark red') +
     facet_wrap(~node) +
@@ -32,8 +32,8 @@ plot_ts.somsp <- function(x, n){
 #' @export 
 
 plot_ts.regs <- function(x, n){
-  to_plot <- get_ts(x, n)
-  ggplot(to_plot, aes(x = time, y = variable)) +
+  to_plot <- regs_ts(x, n)
+  ggplot(to_plot, aes(x = time, y = values)) +
     geom_line(alpha = 0.3) +
     geom_smooth(method = 'loess', span = 0.1, col =  "black", fill = 'dark red') +
     facet_wrap(~region) +

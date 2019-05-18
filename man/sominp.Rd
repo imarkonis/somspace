@@ -28,7 +28,7 @@ the \code{kohonen package}.}
 }
 \details{
 \code{x} should be in tidy format
-with four columns: time, latitude, longitude and variable.
+with four columns: \code{time}, \code{latitude}, \code{longitude} and \code{values}.
 }
 \examples{
 

@@ -6,7 +6,7 @@
 #' @param x The `data.table` object which will be tranformed to `somsp` object.
 #' 
 #' @details `x` should be in tidy format
-#' with four columns: time, latitude, longitude and variable.
+#' with four columns: `time`, `latitude`, `longitude` and `values`.
 #' 
 #' @return A `sominp` object. It contains: 
 #' 
@@ -36,11 +36,11 @@
 sominp <- function(x)
 {
   out <- list()
-  names(x) <- c("time", "lat", "lon", "variable")
+  names(x) <- c("time", "lat", "lon", "values")
   x[, id := .GRP, by = list(lat, lon)]
   setkey(x, id, time)
 
-  input_for_som <- x[, list(id, time, variable)]
+  input_for_som <- x[, list(id, time, values)]
   input_for_som <- as.matrix(reshape(input_for_som, 
                                      ids = "id", 
                                      timevar = "time", 
@@ -58,5 +58,5 @@ sominp <- function(x)
   return(out)
 }
 
-globalVariables(c("time", "lat", "lon", "variable", "id"))
+globalVariables(c("time", "lat", "lon", "values", "id"))
 

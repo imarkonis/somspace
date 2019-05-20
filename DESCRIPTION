@@ -1,6 +1,6 @@
 Package: somspace
 Type: Package
-Title: Spatial Classification of time series with Self-Organizing Maps
+Title: Spatial Classification of Time Series with Self-Organizing Maps
 Version: 1.1.0
 Authors@R: c(person("Yannis", "Markonis",
                      role = c("aut", "cre"),

@@ -23,7 +23,7 @@ derived by the fluctuations of a single variable, namely the self-calibrated Pal
 
 ## Data  
 
-The dataset used is the Old World Drought Atlas (OWDA), a tree-ring reconstruction of the scPDSI over Europe and parts of Northern Africa and Middle East for the last 2,000 summers [[Cook et al., 2016](https://advances.sciencemag.org/content/1/10/e1500561)]{target="_blank"}. The OWDA has been compiled by the spatial regression of 106 tree-ring records to a map with 5414 half-degree grid cells at a 0.5 x 0.5 resolution. Here, we use a subset [[Markonis et al. 2018]](https://www.nature.com/articles/s41467-018-04207-7){target="_blank"}, which optimizes the temporal and spatial distribution of the dataset. The resulting data grid covers 35.25ºN – 62.75ºN and 4.25ºW – 36.25ºE (2647 grid cells) for the period 992–2012 and is freely  [available](https://www.fzp.czu.cz/en/r-9409-science-research/r-9674-leading-research-groups/r-9669-hydrological-and-climate-variability/r-9713-team-news/webapp-for-hydroclimate-reconstruction.html). Alternatively, the `owda` data object can also be used without any downloading, as it is available in the package. However, it covers an even smaller period of OWDA (500 years).
+The dataset used is the Old World Drought Atlas (OWDA), a tree-ring reconstruction of the scPDSI over Europe and parts of Northern Africa and Middle East for the last 2,000 summers [[Cook et al., 2016](https://advances.sciencemag.org/content/1/10/e1500561)]{target="_blank"}. The OWDA has been compiled by the spatial regression of 106 tree-ring records to a map with 5414 half-degree grid cells at a 0.5 x 0.5 resolution. Here, we use a subset [[Markonis et al. 2018]](https://www.nature.com/articles/s41467-018-04207-7){target="_blank"}, which optimizes the temporal and spatial distribution of the dataset. The resulting data grid covers 35.25ºN – 62.75ºN and 4.25ºW – 36.25ºE (2647 grid cells) for the period 992–2012 and is freely  [available](https://www.fzp.czu.cz/en/r-9409-science-research/r-9674-leading-research-groups/r-9669-hydrological-and-climate-variability/r-9713-team-news/webapp-for-hydroclimate-reconstruction.html). Alternatively, the `owda` data object can also be used without any downloadingas. However, it covers an even smaller period of OWDA (500 years).
 
 ```{r}
 library(somspace)
@@ -32,7 +32,7 @@ str(owda)
 
 ## Data preparation
 
-The package uses the function `som()` from `kohonen` package for the spatial implementation of SOMs. However to apply it in spatial data, we first have to create a `somin` object. The transformation of raw data to `somin` class is performed through the `sominp()` function. Its sole argument is the original dataset as a 4-column `data.table` object, containing time, latitude, longitude and the values of the variable to be classified. Even though the input dataset can be gridded or not, with regular or irregular time step, the time series must have **equal length** and **no missing values**.
+The package is built around the `som()` function of `kohonen` package. However to apply it in spatial data, we first have to create a `somin` object. The transformation of raw data to `somin` class is performed through the `sominp()` function. Its sole argument is the original dataset as a 4-column `data.table` object, containing: _time_, _latitude_, _longitude_ and the _values_ of the variable to be classified. Even though the input dataset can be gridded or not, with regular or irregular time step, the time series must have **equal length** and **no missing values**.
 
 ```{r, eval = F}
 inp <- sominp(owda) #may take some time depending on dataset size 
@@ -70,9 +70,9 @@ plot(owda_som)
 summary(owda_som)
 ```
 
-`summary` offers an overview of the classification results. In our example, we have generated a 6 x 6 classification resulting to 36 nodes. Each of them contains a varying number of grid cells ranging from 30 (node 5) to 186 (node 6). Their latitude and longitude are also available as the mean of their corresponding grid cells, as well as their standard deviations. The latter can be used as a preliminary measure of node homogeneity. 
+`summary` offers an overview of the classification results. In our example, we have generated a 6 x 6 classification resulting to 36 nodes. Each of them contains a varying number of grid cells ranging from `r min(summary(owda_som)$node_counts)` (node `r which.min(summary(owda_som)$node_counts)`) to `r max(summary(owda_som)$node_counts)` (node `r which.max(summary(owda_som)$node_counts)`). Their latitude and longitude are also available as the mean of their corresponding grid cells, as well as their standard deviations. The latter can be used as a preliminary measure of node homogeneity. 
 
-Additionaly, the average time series of specific SOMs can be plotted by `plot_ts`:
+Additionaly, the average time series of specific SOMs can be plotted by `plot_ts()`:
 
 ```{r, fig.height=3, fig.width=3}
 plot_ts(owda_som, n = 12)
@@ -114,9 +114,9 @@ plot(owda_regions, regions = 2:13, nrow = 3, ncol = 4)
 plot_ts(owda_regions, n = 9)
 ```
 
-In this example, we can see that hydroclimatic variability over France and Germany is quite homogeneous, as thi sregion remains undivided for a large number of classifications. On the contrary, Mediterranean appears to be divided into smaller regions in almost every step of the classification process.
+In this example, we can see that hydroclimatic variability over France and Germany is quite homogeneous, as this region remains undivided for a large number of classifications. On the contrary, Mediterranean appears to be divided into smaller regions in almost every step of the classification process.
 
-Except for a qualitative comparison of the classification, we can apply various statistical criteria to see how the heterogeneity between regions varies as the number of regions increases.
+Except for a qualitative comparison of the classification, we can apply various statistical criteria to see how the heterogeneity between regions varies as the number of regions increases (here using the `clusterCrit` package).
 
 ```{r, fig.width=6, fig.height=4}
 library(clusterCrit)
@@ -176,7 +176,7 @@ plot.som.cluster.cor <- function(som.classifications, nclusters, fname){
 
 ## References
 
-Users of the _somspace_ package or readers interested in European hydroclimatic variability might find the following references useful.
+Users of the _somspace_ package or readers interested in European hydroclimatic variability might also find the following references useful.
 
 > Cook, E. R., Seager, R., Kushnir, Y., Briffa, K. R., Büntgen, U., Frank, D., ... & Baillie, M. (2015). Old World megadroughts and pluvials during the Common Era. Science Advances, 1(10), e1500561. [Link](https://advances.sciencemag.org/content/1/10/e1500561){target="_blank"}
 

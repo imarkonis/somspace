@@ -1,27 +1,29 @@
 ---
-title: "somspace: Spatial classification with Self-Organizing Maps"
+title: "Package _somspace_: Spatial classification of time series with Self-Organizing Maps"
 author: "Yannis Markonis"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette:
-    toc: true
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{vignette}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
-chunk_output_type: console
+  header-includes:
+   - \usepackage{amsmath}
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval = F)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 ```
 
-This is is an introductory presentation of the `somspace` package, as implemented in the study of [Markonis and Strnad [2019]](link), to detect spatial drought patterns in Europe.
+_somspace_ is an _R_ package for spatial classification of time series. Using Self-Organizing Map (SOM), a popular unsupervised learning algorithm [[Kohonen 1984]](https://www.nature.com/articles/s41467-018-04207-7){target="_blank"}, _somspace_ provides the tools to generate meaningful representations that capture the main spatial patterns of the analyzed time series. A quick introduction to SOM can be found in [Wikipedia](https://en.wikipedia.org/wiki/Self-organizing_map){target="_blank"}, while more demanding readers can get more insight by reading some of the numerous papers on the  [subject](https://scholar.google.cz/scholar?hl=cs&as_sdt=0%2C5&as_vis=1&q=self-organizing+maps&btnG=).
 
-## Data import 
+In this first presentation of the _somspace_ package, we will follow the steps of our [study](https://eartharxiv.org/g28d6){target="_blank"} on the spatial patterns of European hydroclimate. The aim of the study was to determine homogeneous regions of hydroclimatic variability, 
+derived by the fluctuations of a single variable, namely the self-calibrated Palmer Drought Severity Index (scPDSI).
 
-In this study the Old World Drought Atlas [[Cook et al., 2016](link)] was used, as pre-processed by [Markonis et al. [2018]](link). The file can be downloaded [here](https://www.fzp.czu.cz/en/r-9409-science-research/r-9674-leading-research-groups/r-9669-hydrological-and-climate-variability/r-9713-team-news/webapp-for-hydroclimate-reconstruction.html), and is a `data.table` object saved as an `.rds` file. Alternatively, the `owda` data object that is included in the package can be used, which covers only period 1500-2012.
+## Data  
+
+The dataset used is the Old World Drought Atlas (OWDA), a tree-ring reconstruction of the scPDSI over Europe and parts of Northern Africa and Middle East for the last 2,000 summers [[Cook et al., 2016](https://advances.sciencemag.org/content/1/10/e1500561)]{target="_blank"}. The OWDA has been compiled by the spatial regression of 106 tree-ring records to a map with 5414 half-degree grid cells at a 0.5 x 0.5 resolution. Here, we use a subset [[Markonis et al. 2018]](https://www.nature.com/articles/s41467-018-04207-7){target="_blank"}, which optimizes the temporal and spatial distribution of the dataset. The resulting data grid covers 35.25ºN – 62.75ºN and 4.25ºW – 36.25ºE (2647 grid cells) for the period 992–2012 and is freely  [available](https://www.fzp.czu.cz/en/r-9409-science-research/r-9674-leading-research-groups/r-9669-hydrological-and-climate-variability/r-9713-team-news/webapp-for-hydroclimate-reconstruction.html). Alternatively, the `owda` data object can also be used without any downloading, as it is available in the package. However, it covers an even smaller period of OWDA (500 years).
 
 ```{r}
 library(somspace)
@@ -30,75 +32,161 @@ str(owda)
 
 ## Data preparation
 
-First of all, we have to transform the raw data from `data.table` to `somin` class. If the original data have different structure/type them it is important to transform them to a 4-column `data.table`, containing time, lat, lon and the variable.
+The package uses the function `som()` from `kohonen` package for the spatial implementation of SOMs. However to apply it in spatial data, we first have to create a `somin` object. The transformation of raw data to `somin` class is performed through the `sominp()` function. Its sole argument is the original dataset as a 4-column `data.table` object, containing time, latitude, longitude and the values of the variable to be classified. Even though the input dataset can be gridded or not, with regular or irregular time step, the time series must have **equal length** and **no missing values**.
 
-```{r}
-inp <- sominp(owda) #depending on data set size may take some time
-```
-
-The `somin` class is a list with three elements. The first one, `input_for_som`, is a `matrix` that will be used by `kohonen::som` function to generate the SOM. The second one, `coords`, is a `data.table` with the point ids and their coordinates. The last one, `input_dt` is also a `data.table` with the raw data that were used to generate `input_for_som`.
-
-```{r}
+```{r, eval = F}
+inp <- sominp(owda) #may take some time depending on dataset size 
 str(inp)
 ```
 
+The `somin` class is a list with three elements. The first one, `input_for_som`, is a `matrix` that will be used by `kohonen::som()` function to generate the SOM. The second one, `coords`, is a `data.table` with the point ids and their coordinates. The last one, `input_dt` is also a `data.table` with the raw data that were used to generate `input_for_som`.
+
 ## SOM generation
 
-The generation of SOM is straightforward:
+The generation of SOM is quite straightforward:
 
-```{r}
-my_som <- somspa(inp)
+```{r, eval = F}
+owda_som <- somspa(inp)
 ```
 
-Which creates a `somsp` object that contains the som, the nodes properties and the original data.
+This creates a `somsp` object, which contains the som, the nodes properties and the original data.
 
-```{r}
-str(somsp)
+Since `somspa()` uses the function `som()`, it can also take `som()` arguments. For instance, to create a 6 x 6 map after 1000 iterations:
+
+```{r, eval = F}
+owda_som <- somspa(inp, grid = somgrid(6, 6), rlen = 1000)
 ```
 
-Since `somspa()` uses the function `som()` from `kohonen` package it can also take `som()` arguments. For instance, to create a 6 x 6 map after 1000 iterations:
-
-```{r}
-my_som <- somspa(inp, grid = somgrid(6, 6), rlen = 1000)
+```{r, echo = F}
+owda_som <- readRDS("../../owda_som/data/somsp.rds")
 ```
 
 ## SOM analysis
 
-The `somsp` objects can be easily plotte by `plot()` or summarized by `summary()` functions.
+The `somsp` objects can be easily plotted by `plot()` or summarized by `summary()` functions.
 
-```{r}
-plot(my_som)
-summary(my_som)
+```{r, fig.width=5, fig.height=5}
+plot(owda_som)
+summary(owda_som)
 ```
+
+`summary` offers an overview of the classification results. In our example, we have generated a 6 x 6 classification resulting to 36 nodes. Each of them contains a varying number of grid cells ranging from 30 (node 5) to 186 (node 6). Their latitude and longitude are also available as the mean of their corresponding grid cells, as well as their standard deviations. The latter can be used as a preliminary measure of node homogeneity. 
 
 Additionaly, the average time series of specific SOMs can be plotted by `plot_ts`:
 
-```{r}
-plot_ts(my_som, 12)
-plot_ts(my_som, c(1, 12, 21, 39)) 
-plot_ts(my_som, 1:max(my_som$summary$node)) #plots all soms
+```{r, fig.height=3, fig.width=3}
+plot_ts(owda_som, n = 12)
+```
+
+The time series can also be manually extracted and further analysed or plotted: 
+
+```{r, eval = F}
+node_12 <- owda_som$input_dt[node == 12, .(node, time, variable)] #in version 1.1.0 `variable` is changed to `values`
+```
+
+Multiple time series can also be plotted, by adding a vector argument in `n`.
+
+```{r, fig.height=4, fig.width=4}
+plot_ts(owda_som, n = c(1, 7, 21, 33)) 
+```
+
+```{r, eval = F}
+plot_ts(owda_som, 1:max(owda_som$summary$node)) #plots all soms
 ```
 
 ## Further classification of SOMs in regions
 
-To further reduce the number of regions with similar characteristics `somregs()` is applied. It uses the `hclust()` function for Hierarchical cluster analysis and its default arguments can be changed accordingly. Please not that the `n` argument refers to the maximum number of regions and not to a single one. `somregs()` will merge SOMs to similar regions starting from 2 and reachinh `n` and will keep them all in the resulting `regs` object.
+The number of regions with similar characteristics can be further reduced by hierarchical cluster analysis implemented in `somregs()` function. Instead of returning a pre-defined number of regions, `somregs()` provides the series of homogeneous regions starting from 2 up to `nregions` and returns them as a `regs` object. In each new classification one of the prior regions is divided and the sub-region with the less nodes gets a new id. This can be useful for keeping track of the classification process and observing which regions remain undivided as the number of splits increases. 
+
+Except for the `somsp` and `nregions`, other arguments used in the `hclust()` function can be added, e.g., `method` for choosing the hierarchical cluster algorithm.
 
 ```{r}
-my_regions <- somregs(my_som, 12)
-my_regions <- somregs(my_som, 17, method = "ward.D2") 
+owda_regions <- somregs(owda_som, nregions = 13, method = "ward.D2") 
 ```
 
-`regs` objects which are two-element lists. The `regions` element contains the information about the regions and the `input_dt` the time series of the original dataset. Similarly to `somsp` objects, `regs` can be plot as maps or time series.
+The output `regs` object are a two-element list. The `regions` element contains the corresponding information about the regions and the `input_dt` the time series of the original dataset. Similarly to `somsp` objects, `regs` can be plotted as maps or time series.
 
-```{r}
-plot(my_regions, c(2, 5, 9, 13), 2, 2)
-plot_ts(my_regions, 2)
+```{r, results='hide', results='hide', fig.height=6, fig.width=7}
+plot(owda_regions, regions = 2:13, nrow = 3, ncol = 4)
 ```
+
+```{r, fig.height=8, fig.width=7}
+plot_ts(owda_regions, n = 9)
+```
+
+In this example, we can see that hydroclimatic variability over France and Germany is quite homogeneous, as thi sregion remains undivided for a large number of classifications. On the contrary, Mediterranean appears to be divided into smaller regions in almost every step of the classification process.
+
+Except for a qualitative comparison of the classification, we can apply various statistical criteria to see how the heterogeneity between regions varies as the number of regions increases.
+
+```{r, fig.width=6, fig.height=4}
+library(clusterCrit)
+x <- owda_som$som$codes[[1]]
+setorder(owda_regions$regions, node) 
+classifications <- unique(data.frame(node = owda_regions$regions$node, owda_regions$regions[, 11:22]))
+cluster_comparison <- as.matrix(intCriteria(x, as.integer(classifications[, 2]), "all"))
+
+for(i in 3:13){
+  cluster_comparison <- cbind(cluster_comparison, 
+                              intCriteria(x, as.integer(classifications[, i]), "all"))
+} 
+colnames(cluster_comparison) <- 2:13
+
+cluster_comparison <- apply(cluster_comparison, 2, unlist)
+colnames(cluster_comparison) <- 2:13
+cluster_comparison <- data.table(melt(cluster_comparison, variable.factor = T)) 
+colnames(cluster_comparison) <- c("Method", "nRegions", "Value") 
+
+homo_methods <- c("davies_bouldin", "c_index", 
+                  "calinski_harabasz", "sd_scat", 
+                  "sd_dis", "wemmert_gancarski")
+
+ggplot(cluster_comparison[Method %in% homo_methods], aes(x = nRegions, y = Value)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap(~Method, scales = "free") +
+  theme_bw()
+```
+
+For OWDA, most of the selected measures present milder decline in heterogeneity after the classification in 9 regions. This implies that this number might sufficiently represent the spatial heterogeneity of European hydroclimate. Of course, the suggested division should be carefully studied to see whether it agrees with similar findings in other studies and other measures as well.
 
 ## Complex network analysis
 
-Finally, a specific classification of certain number of regions can be analysed through canonical networks and ploted as map with `cnet()`. The threshold, `thres`, refers to the cross-correlation coefficient between the averaged time series of each region; only values above `thres` are considered to be network connections.
+Another useful feature of _somspace_ is the analysis of spatial dependencies between regions with the complex networks methodology [[Tsonis et al.  2006]](https://journals.ametsoc.org/doi/pdf/10.1175/BAMS-87-5-585){target="_blank"}. Any of the classificationa stored in the `regs` object can be analysed through complex networks and plotted as map with `cnet()`. The threshold, `thres`, refers to the cross-correlation coefficient between the aggregated time series of each region; only values above `thres` are considered to be network connections. 
+
+```{r, results='hide', fig.width=6, fig.height=5}
+cnet(owda_regions, n = 9, thres = 0.3)
+```
+
+We can see that for a classification of `n = 9` regions there is a clear zonal (west-to east) orientation of the spatial dependencies in European hydroclimate. The Iberian Peninsula, appears not to be possitively correlated with any of the other regions. If the cross-correlation matrix is studied, it can be seen that it is actually negatively correlated. This is one of the limitations of the complex networks approach and this is why **the cross-correlation matrix should always be checked**.
 
 ```{r}
-cnet(my_regions, 12, 0.3)
+plot.som.cluster.cor <- function(som.classifications, nclusters, fname){
+  som.clusters.cor.mat = make.som.cor.mat(get.classif(som.classifications, nclusters))  
+  corrplot::corrplot(som.clusters.cor.mat, 
+           type = "upper",  tl.col = "black", 
+           tl.pos = "upper", cl.lim = c(-1, 1), 
+           col = rgb.palette.RdBu(200))
+  corrplot(som.clusters.cor.mat, add = TRUE, 
+           type = "lower", method = "number", cl.lim = c(-1, 1), 
+           col = rgb.palette.RdBu(200),  number.cex = 1.5,
+           diag = FALSE, tl.pos = "n" , cl.pos = "n")
+  dev.off()
+}
 ```
+
+## References
+
+Users of the _somspace_ package or readers interested in European hydroclimatic variability might find the following references useful.
+
+> Cook, E. R., Seager, R., Kushnir, Y., Briffa, K. R., Büntgen, U., Frank, D., ... & Baillie, M. (2015). Old World megadroughts and pluvials during the Common Era. Science Advances, 1(10), e1500561. [Link](https://advances.sciencemag.org/content/1/10/e1500561){target="_blank"}
+
+>Kohonen, T. (1982). Self-organized formation of topologically correct feature maps. Biological cybernetics, 43(1), 59-69. [Link](https://link.springer.com/article/10.1007/BF00337288){target="_blank"}
+
+>Markonis, Y., Hanel, M., Máca, P., Kyselý, J., & Cook, E. R. (2018). Persistent multi-scale fluctuations shift European hydroclimate to its millennial boundaries. Nature communications, 9(1), 1767. [Link](https://www.nature.com/articles/s41467-018-04207-7){target="_blank"}
+
+>Markonis, Y., & Strnad, F. (2019). Representation of European Hydroclimatic Patterns with Self-organizing Maps. EarthArXiv. May, 14. [Link](https://eartharxiv.org/g28d6){target="_blank"}
+
+>Tsonis, A. A., Swanson, K. L., & Roebber, P. J. (2006). What do networks have to do with climate?. Bulletin of the American Meteorological Society, 87(5), 585-596. [Link](https://journals.ametsoc.org/doi/pdf/10.1175/BAMS-87-5-585){target="_blank"}
+
+>Wehrens & J., & Kruisselbrink, J. (2018). Flexible Self-Organising Maps in kohonen 3.0. Journal of Statistical Software, 87, 7. [Link](https://www.jstatsoft.org/article/view/v087i07){target="_blank"}
+

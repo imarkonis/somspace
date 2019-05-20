@@ -159,21 +159,6 @@ cnet(owda_regions, n = 9, thres = 0.3)
 
 We can see that for a classification of `n = 9` regions there is a clear zonal (west-to east) orientation of the spatial dependencies in European hydroclimate. The Iberian Peninsula, appears not to be possitively correlated with any of the other regions. If the cross-correlation matrix is studied, it can be seen that it is actually negatively correlated. This is one of the limitations of the complex networks approach and this is why **the cross-correlation matrix should always be checked**.
 
-```{r}
-plot.som.cluster.cor <- function(som.classifications, nclusters, fname){
-  som.clusters.cor.mat = make.som.cor.mat(get.classif(som.classifications, nclusters))  
-  corrplot::corrplot(som.clusters.cor.mat, 
-           type = "upper",  tl.col = "black", 
-           tl.pos = "upper", cl.lim = c(-1, 1), 
-           col = rgb.palette.RdBu(200))
-  corrplot(som.clusters.cor.mat, add = TRUE, 
-           type = "lower", method = "number", cl.lim = c(-1, 1), 
-           col = rgb.palette.RdBu(200),  number.cex = 1.5,
-           diag = FALSE, tl.pos = "n" , cl.pos = "n")
-  dev.off()
-}
-```
-
 ## References
 
 Users of the _somspace_ package or readers interested in European hydroclimatic variability might also find the following references useful.

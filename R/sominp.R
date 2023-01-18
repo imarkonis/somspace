@@ -23,12 +23,11 @@
 #' @seealso \code{\link{somspa}} 
 #' 
 #' @examples
-#' 
-#' dummy <- owda[Time <= 1510] #toy example
-#' inp_som <- sominp(dummy)
+#'
 #' 
 #' \donttest{
-#' inp_som <- sominp(owda)}
+#' dummy <- owda[Time <= 1510]
+#' inp_som <- sominp(dummy)}
 #' 
 #' @importFrom stats complete.cases cor cutree dist hclust median reshape sd time
 #' @export

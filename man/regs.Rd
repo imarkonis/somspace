@@ -4,7 +4,9 @@
 \name{regs}
 \alias{regs}
 \title{Regions class}
-\format{An object of class \code{regs} of length 0.}
+\format{
+An object of class \code{regs} of length 0.
+}
 \usage{
 regs
 }

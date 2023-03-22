@@ -15,7 +15,7 @@ A \code{sominp} object. It contains:
 \itemize{
 
 \item{a \code{matrix} that can be used as input for the \code{som} function of
-the \code{kohonen package}.}
+the \verb{kohonen package}.}
 
 \item{a \code{data.table} with the with spatial point coordinates and a corresponding id.}
 
@@ -32,11 +32,10 @@ with four columns: time, latitude, longitude and variable.
 }
 \examples{
 
-dummy <- owda[Time <= 1510] #toy example
-inp_som <- sominp(dummy)
 
 \donttest{
-inp_som <- sominp(owda)}
+dummy <- owda[Time <= 1510]
+inp_som <- sominp(dummy)}
 
 }
 \seealso{

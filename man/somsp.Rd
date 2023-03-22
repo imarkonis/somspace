@@ -4,7 +4,9 @@
 \name{somsp}
 \alias{somsp}
 \title{Spatial SOM class}
-\format{An object of class \code{somsp} of length 0.}
+\format{
+An object of class \code{somsp} of length 0.
+}
 \usage{
 somsp
 }

@@ -26,6 +26,7 @@
 #' @seealso \code{\link{sominp}} 
 #' 
 #' @examples
+#' \donttest{
 #' dummy <- owda[Time <= 1600] #toy example
 #' inp_som <- sominp(dummy)
 #' 
@@ -38,18 +39,7 @@
 #' plot_ts(my_som, n = c(1, 2, 4, 9)) 
 #' plot_ts(my_som, n = 1:max(my_som$summary$node)) #plots all soms}
 #' 
-#' \donttest{
-#' inp_som <- sominp(owda)
-#' my_som <- somspa(inp_som, rlen = 1000, grid = somgrid(6, 6, "hexagonal"))
-#' my_som$summary
-#' my_som$som
-#' 
-#' plot(my_som)
-#' plot_ts(my_som, n = 12)
-#' plot_ts(my_som, n = c(1, 12, 21, 33)) 
-#' plot_ts(my_som, n = 1:max(my_som$summary$node)) #plots all soms}
-#' 
-#' @importFrom kohonen som
+#' @rawNamespace import(kohonen, except = map)
 #' @export
 
 somspa <- function(x, ...){

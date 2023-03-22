@@ -10,22 +10,18 @@
 #' each region and plots a map linking the regions with cross-correlations above the selected threshold.
 #' 
 #' @examples
-#' dummy <- owda[Time <= 1600] #toy example
+#' \donttest{
+#' dummy <- owda[Time <= 1600]
 #' inp_som <- sominp(dummy)
 #' my_som <- somspa(inp_som, rlen = 100, grid = somgrid(3, 3, "hexagonal"))
 #' my_regions <- somregs(my_som, nregions = 6) 
-#' cnet(my_regions, n = 5, thres = 0.2)
-#' \donttest{
-#' inp_som <- sominp(owda)
-#' my_som <- somspa(inp_som, rlen = 1000, grid = somgrid(6, 6, "hexagonal"))
-#' my_regions <- somregs(my_som, nregions = 15) 
-#' cnet(my_regions, n = 12, thres = 0.3)}
-#' @import maps
+#' cnet(my_regions, n = 5, thres = 0.2)}
 #' @importFrom graphics par plot points segments text
+#' @importFrom reshape2 melt
 #' @export
 
 cnet <- function(x, n, thres){
-  aa_cor <- melt(cor_regs(x, n))
+  aa_cor <- reshape2::melt(cor_regs(x, n))
   aa_cor <- data.table(aa_cor[aa_cor$value != 1,])
   aa_cor_thres <- aa_cor[value > thres]
   

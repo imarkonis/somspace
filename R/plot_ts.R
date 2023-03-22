@@ -9,7 +9,9 @@
 #' 
 #' @seealso \code{\link{somspa}}
 #' 
-#' @import ggplot2 data.table
+#' @import ggplot2
+#' @rawNamespace import(data.table, except = melt)
+#' @importFrom maps map
 #' @export 
 
 plot_ts <- function(x, n) UseMethod("plot_ts")

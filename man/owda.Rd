@@ -4,7 +4,9 @@
 \name{owda}
 \alias{owda}
 \title{Old World Drought Atlas (1500-2012)}
-\format{An object of class \code{data.table} (inherits from \code{data.frame}) with 1355264 rows and 4 columns.}
+\format{
+An object of class \code{data.table} (inherits from \code{data.frame}) with 1355264 rows and 4 columns.
+}
 \source{
 \href{https://www.fzp.czu.cz/en/r-9409-science-research/r-9674-leading-research-groups/r-9669-hydrological-and-climate-variability/r-9713-team-news/webapp-for-hydroclimate-reconstruction.html}{FZP archive}
 }

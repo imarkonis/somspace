@@ -6,7 +6,7 @@ output:
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{somspace: Spatial classification with Self-Organizing Maps}
+  %\VignetteIndexEntry{Vignette Title}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -17,11 +17,11 @@ chunk_output_type: console
 knitr::opts_chunk$set(echo = TRUE, eval = F)
 ```
 
-This is is an introductory presentation of the `somspace` package, as implemented in the study of [Markonis and Strnad [2019]](link), to detect spatial drought patterns in Europe.
+This is is an introductory presentation of the `somspace` package, as implemented in the study of [Markonis and Strnad [2020]](https://doi.org/10.1177/0959683620913924), to detect spatial drought patterns in Europe.
 
 ## Data import 
 
-In this study the Old World Drought Atlas [[Cook et al., 2016](link)] was used, as pre-processed by [Markonis et al. [2018]](link). The file can be downloaded [here](https://www.fzp.czu.cz/en/r-9409-science-research/r-9674-leading-research-groups/r-9669-hydrological-and-climate-variability/r-9713-team-news/webapp-for-hydroclimate-reconstruction.html), and is a `data.table` object saved as an `.rds` file. Alternatively, the `owda` data object that is included in the package can be used, which covers only period 1500-2012.
+In this study the Old World Drought Atlas [[Cook et al., 2015](https://doi.org/10.1126/sciadv.1500561)] was used, as pre-processed by [Markonis et al. [2018]](https://doi.org/10.1038/s41467-018-04207-7). The file can be downloaded [here](https://www.fzp.czu.cz/en/r-9409-science-research/r-9674-leading-research-groups/r-9669-hydrological-and-climate-variability/r-9713-team-news/webapp-for-hydroclimate-reconstruction.html), and is a `data.table` object saved as an `.rds` file. Alternatively, the `owda` data object that is included in the package can be used, which covers only period 1500-2012.
 
 ```{r}
 library(somspace)

@@ -9,6 +9,8 @@ plot.regs <- function(x, regions, nrow = 1, ncol = 1, ...){
                    "#F4CC70", "#EBB582",  "#BF9A77",
                    "#E38B75", "#CE5A57",  "#D24136", "#785A46" )
   colset_mid_qual <- colset_mid[c(11, 2, 4, 6,  1, 8, 10, 5, 7, 3, 9, 12)]
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   
   nnodes = max(x$regions$node)
   my_col = c(colset_light_qual, colset_mid_qual)

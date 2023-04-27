@@ -5,6 +5,7 @@
 #' @param x regs object. 
 #' @param n number of regions.
 #' @param thres the cross-correlation threshold of the network.
+#' @return plot object
 #' 
 #' @details The `cnet` function estimates the cross-correlation matrix of the average time series of 
 #' each region and plots a map linking the regions with cross-correlations above the selected threshold.

@@ -18,6 +18,8 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
+URL: https://github.com/imarkonis/somspace
+BugReports: https://github.com/imarkonis/somspace/issues
 Suggests: 
     knitr,
     rmarkdown,

@@ -4,6 +4,7 @@
 #' 
 #' @param x is either a `somsp` or a `regs` object  
 #' @param n is either the set of nodes for `somsp` or the number of regions for `regs`
+#' @return plot object
 #' 
 #' @details In case of `regs`, all the regions are ploted. 
 #' 

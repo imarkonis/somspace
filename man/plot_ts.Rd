@@ -11,6 +11,9 @@ plot_ts(x, n)
 
 \item{n}{is either the set of nodes for \code{somsp} or the number of regions for \code{regs}}
 }
+\value{
+plot object
+}
 \description{
 Plots the time series of SOM nodes or regions mean
 }

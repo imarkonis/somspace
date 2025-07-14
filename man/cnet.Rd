@@ -13,6 +13,9 @@ cnet(x, n, thres)
 
 \item{thres}{the cross-correlation threshold of the network.}
 }
+\value{
+plot object
+}
 \description{
 \code{cnet} plots the canonical network map of a single classification scheme.
 }
